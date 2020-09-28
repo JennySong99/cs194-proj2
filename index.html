@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div.gallery {
+  border: 0px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 0px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+p {
+   font-family: Helvetica, Arial, sans-serif;
+   font-size: 1.2rem;
+   line-height: 1.5;
+   word-spacing: 2px;
+}
+.row{
+  display:flex;
+  padding-bottom: 50px;
+  align-items: center;
+  justify-content: center;
+
+  /*padding-right: 50px;*/
+}
+
+.row2{
+  display:flex;
+  padding-bottom: 0;
+  align-items: center;
+  justify-content: center;
+
+  /*padding-right: 50px;*/
+}
+
+/*.header {
+  display:flex;
+  align-content: center;
+  justify-content: space-around;
+  padding: 10px 16px;
+  background: #555;
+  opacity: 50%;
+  color: #f1f1f1;
+}*/
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+
+.responsive {
+  display:inline-block;
+  padding: 0 6px;
+  float: left;
+  width: 33%;
+  padding-bottom: 10px;
+}
+.responsive_2 {
+  width:40%;
+  display: flex;
+  margin:auto;
+}
+
+.responsive_3 {
+  width:30%;
+  display:flex;
+  margin:auto;
+}
+.responsive_4 {
+  width:20%;
+  display:flex;
+  margin:auto;
+}
+
+.responsive_5 {
+  width:20%;
+  display:flex;
+  margin:0;
+}
+
+.responsive_6 {
+  width:15%;
+  display:flex;
+  margin:0;
+}
+
+.responsive_self {
+  width:25%;
+  display:inline-block;
+  margin:auto;
+}
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+</head>
+<body style="padding-left: 150px;padding-right: 150px;padding-top: 50px;">
+
+<h1 style="text-align: center; font-size: 50px;">CS 194: Fun with Filters and Frequencies!</h1>
+<h2 style="text-align: center; font-size: 35px;">Jenny Song</h2>
+<div class = "content">
+
+<h2 style="text-align: left;margin-top: 50px;">Part 1: Fun with Filters</h2>
+<h2>1.1: Finite Difference Operator</h2>
+<p>To form the edge image, I first calculated the partial derivative of the image in x and in y, then calculated the magnitude by doing np.sqrt(grad_x**2+grad_y**2), finally used the threshold 0.00075 to supress the noise.</p>
+<div class="row">
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="./cameraman.png">
+      <img src="./cameraman.png" alt="Cameraman" width="600" height="400">
+    </a>
+    <div class="desc">Camera Man</div>
+  </div>
+</div>
+
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="cameraman_dx.png">
+      <img src="cameraman_dx.png" alt="cameraman_dx" width="600" height="400">
+    </a>
+    <div class="desc">DX</div>
+  </div>
+</div>
+
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="cameraman_dy.png">
+      <img src="cameraman_dy.png" alt="cameraman_dy" width="600" height="400">
+    </a>
+    <div class="desc">DY</div>
+  </div>
+</div>
+</div>
+<div class="row">
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="cameraman_mag.png">
+      <img src="cameraman_mag.png" alt="cameraman_mag" width="600" height="400">
+    </a>
+    <div class="desc">Magnitude</div>
+  </div>
+</div>
+
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="cameraman_edge.png">
+      <img src="cameraman_edge.png" alt="cameraman_edge" width="600" height="400">
+    </a>
+    <div class="desc">Edge</div>
+  </div>
+</div>
+</div>
+
+<h2>1.2: Derivative of Gaussian (DoG) Filter</h2>
+<p>Use a low pass filter--the Gaussian filter before calclating the partial derivative will remove some noise and provide a more defined and smooth edge.</p>
+<div class="row">
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="cameraman_dog_mag.png">
+      <img src="cameraman_dog_mag.png" alt="dog" width="600" height="400">
+    </a>
+    <div class="desc">Magnitude with DoG Filter</div>
+  </div>
+</div>
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="cameraman_dog_edge.png">
+      <img src="cameraman_dog_edge.png" alt="dog" width="600" height="400">
+    </a>
+    <div class="desc">Edge with DoG filters</div>
+  </div>
+</div>
+</div>
+<h2>1.3: Image Straightening</h2>
+<div class="row">
+  <div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="facade_histogram.png">
+      <img src="facade_histogram.png" alt="melons" width="600" height="400">
+    </a>
+    <div class="desc">Facade Histagram of Best Angle</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="facade_figure.png">
+      <img src="facade_figure.png" alt="lady" width="600" height="400">
+    </a>
+    <div class="desc">Facade Search</div>
+  </div>
+</div>
+</div>
+
+<div class = "row">
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="facade.jpg">
+      <img src="facade.jpg" alt="harvesters" width="600" height="400">
+    </a>
+    <div class="desc">Facade Original</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="facade_alignedd.png">
+      <img src="facade_alignedd.png" alt="icon" width="600" height="400">
+    </a>
+    <div class="desc">Facade Straightened</div>
+  </div>
+</div>
+</div>
+
+
+
+
+<div class="row">
+  <div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="ocean_histogram.png">
+      <img src="ocean_histogram.png" alt="melons" width="600" height="400">
+    </a>
+    <div class="desc">Ocean Histagram of Best Angle</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="ocean_figure.png">
+      <img src="ocean_figure.png" alt="lady" width="600" height="400">
+    </a>
+    <div class="desc">Ocean Search</div>
+  </div>
+</div>
+</div>
+
+<div class = "row">
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="ocean.png">
+      <img src="ocean.png" alt="harvesters" width="600" height="400">
+    </a>
+    <div class="desc">Ocean Original</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="ocean_aligned.png">
+      <img src="ocean_aligned.png" alt="icon" width="600" height="400">
+    </a>
+    <div class="desc">Ocean Straightened</div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="row">
+  <div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="pisa_histogram.png">
+      <img src="pisa_histogram.png" alt="melons" width="600" height="400">
+    </a>
+    <div class="desc">Pisa Histagram of Best Angle</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="pisa_figure.png">
+      <img src="pisa_figure.png" alt="lady" width="600" height="400">
+    </a>
+    <div class="desc">Pisa Search</div>
+  </div>
+</div>
+</div>
+
+<div class = "row">
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="pisa.jpg">
+      <img src="pisa.jpg" alt="harvesters" width="600" height="400">
+    </a>
+    <div class="desc">Pisa Original</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="pisa_aligned.png">
+      <img src="pisa_aligned.png" alt="icon" width="600" height="400">
+    </a>
+    <div class="desc">Straightened</div>
+  </div>
+</div>
+</div>
+
+<h3>Failture Case</h3>
+<p>We can see from the figure that my algorithm thinks the more negative the rotation angle is, the greater percentage of horizontal and vertical edges there are. This is due to the fact that my algorithm crops more chunk of the image as the rotation angle gets bigger. Therefore, when the angle is very big, with a smaller amount of horizontal and vertical edges, the percentage can be a lot higher. </p>
+
+<div class="row">
+  <div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="road_histogram.png">
+      <img src="road_histogram.png" alt="melons" width="200" height="100">
+    </a>
+    <div class="desc">Road Histagram of Best Angle</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="road_figure.png">
+      <img src="road_figure.png" alt="lady" width="200" height="100">
+    </a>
+    <div class="desc">Road Search</div>
+  </div>
+</div>
+</div>
+
+<div class = "row">
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="road.png">
+      <img src="road.png" alt="harvesters" width="600" height="400">
+    </a>
+    <div class="desc">Road Original</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="road_aligned.png">
+      <img src="road_aligned.png" alt="icon" width="600" height="400">
+    </a>
+    <div class="desc">Road Straightened</div>
+  </div>
+</div>
+</div>
+
+<h2 style="text-align: left;margin-top: 50px;">Part 2: Fun with Frequencies!</h2>
+
+<h2>2.1: Image "Sharpening"</h2>
+<div class="row">
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="taj.jpg">
+      <img src="taj.jpg" alt="onion church" width="600" height="400">
+    </a>
+    <div class="desc">Taj Original </div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="taj_blur.jpg">
+      <img src="taj_blur.jpg" alt="self-protrait" width="600" height="400">
+    </a>
+    <div class="desc">Taj Blurred</div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="taj_sharp.jpg">
+      <img src="taj_sharp.jpg" alt="three generations" width="600" height="400">
+    </a>
+    <div class="desc">Taj Sharppened</div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="lake.png">
+      <img src="lake.png" alt="onion church" width="600" height="400">
+    </a>
+    <div class="desc">Lake Original </div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="lake_blur.png">
+      <img src="lake_blur.png" alt="self-protrait" width="600" height="400">
+    </a>
+    <div class="desc">Lake Blurred</div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="lake_sharp.png">
+      <img src="lake_sharp.png" alt="three generations" width="600" height="400">
+    </a>
+    <div class="desc">Lake Sharppened</div>
+  </div>
+</div>
+</div>
+<h2>2.2: Hybrid Image</h2>
+<p>I used color to enhance the effect. I used color for the low-frequency component, and gray scale for the high-frequency component.</p>
+<h3>Example Image</h3>
+
+<div class="row">
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="DerekPicture.jpg">
+      <img src="DerekPicture.jpg" alt="train" width="600" height="400">
+    </a>
+    <div class="desc">Derek Picture</div>
+  </div>
+</div>
+
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="f2.png">
+      <img src="f2.png" alt="workshop" width="600" height="400">
+    </a>
+    <div class="desc">Derek Frequency</div>
+  </div>
+</div>
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="nutmeg.jpg">
+      <img src="nutmeg.jpg" alt="train" width="600" height="400">
+    </a>
+    <div class="desc">Cat</div>
+  </div>
+</div>
+
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="f1.png">
+      <img src="f1.png" alt="workshop" width="600" height="400">
+    </a>
+    <div class="desc">Cat Frequency</div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="hybrid_low.jpg">
+      <img src="hybrid_low.jpg" alt="train" width="600" height="400">
+    </a>
+    <div class="desc">Hybrid Low Pass Filter</div>
+  </div>
+</div>
+
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="f_low.png">
+      <img src="f_low.png" alt="workshop" width="600" height="400">
+    </a>
+    <div class="desc">Hybrid Low Pass Filter Frequency</div>
+  </div>
+</div>
+
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="hybrid_high.jpg">
+      <img src="hybrid_high.jpg" alt="train" width="600" height="400">
+    </a>
+    <div class="desc">Hybrid High Pass Filter</div>
+  </div>
+</div>
+
+<div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="f_high.png">
+      <img src="f_high.png" alt="workshop" width="600" height="400">
+    </a>
+    <div class="desc">Hybrid Low Pass Filter Frequency</div>
+  </div>
+</div>
+
+</div>
+
+<div class="row">
+  <div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="hybrid.jpg">
+      <img src="hybrid.jpg" alt="train" width="300" height="200">
+    </a>
+    <div class="desc">Hybrid Image</div>
+  </div>
+</div>
+
+<div class="responsive_2">
+  <div class="gallery">
+    <a target="_blank" href="f_result.png">
+      <img src="f_result.png" alt="workshop" width="300" height="200">
+    </a>
+    <div class="desc">Hybrid Image Frequency</div>
+  </div>
+</div>
+</div>
+
+<h3>Self Select Image</h3>
+<div class="row">
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="9825.jpg">
+      <img src="9825.jpg" alt="onion church" width="600" height="400">
+    </a>
+    <div class="desc">Marilyn Monroe </div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="2187.jpg">
+      <img src="2187.jpg" alt="self-protrait" width="600" height="400">
+    </a>
+    <div class="desc">Einsten</div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="2187_hybrid.jpg">
+      <img src="2187_hybrid.jpg" alt="three generations" width="600" height="400">
+    </a>
+    <div class="desc">Hybrid Einsten</div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="cat_head.jpg">
+      <img src="cat_head.jpg" alt="onion church" width="600" height="400">
+    </a>
+    <div class="desc">Cat</div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="dog.jpeg">
+      <img src="dog.jpeg" alt="self-protrait" width="600" height="400">
+    </a>
+    <div class="desc">Dog</div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid.jpg">
+      <img src="cat_head_hybrid.jpg" alt="three generations" width="600" height="400">
+    </a>
+    <div class="desc">Cat Dog</div>
+  </div>
+</div>
+</div>
+<h3>Failture Case</h3>
+<p>Apprantly, you cannot have two cuties at one place togeher.</p>
+<div class="row">
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="small_cat.png">
+      <img src="small_cat.png" alt="onion church" width="600" height="400">
+    </a>
+    <div class="desc">Cat</div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="kid.png">
+      <img src="kid.png" alt="self-protrait" width="600" height="400">
+    </a>
+    <div class="desc">Kid</div>
+  </div>
+</div>
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="small_cat_hybrid.jpg">
+      <img src="small_cat_hybrid.jpg" alt="three generations" width="600" height="400">
+    </a>
+    <div class="desc">Kid Cat</div>
+  </div>
+</div>
+</div>
+
+
+<h2>2.3: Gaussian and Laplacian Stacks</h2>
+<h3>Hybird Image Stacks</h3>
+<div class = row2>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_gauss_stack0.jpg">
+      <img src="cat_head_hybrid_hybrid_gauss_stack0.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 0</div> -->
+  </div>
+</div>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_gauss_stack1.jpg">
+      <img src="cat_head_hybrid_hybrid_gauss_stack1.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 1</div> -->
+  </div>
+</div>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_gauss_stack2.jpg">
+      <img src="cat_head_hybrid_hybrid_gauss_stack2.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 2</div> -->
+  </div>
+</div>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_gauss_stack3.jpg">
+      <img src="cat_head_hybrid_hybrid_gauss_stack3.jpg" alt="cathedral" width="600" height="400">
+    </a>
+   <!--  <div class="desc">Gaussian stack 3</div> -->
+  </div>
+</div>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_gauss_stack4.jpg">
+      <img src="cat_head_hybrid_hybrid_gauss_stack4.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 4</div> -->
+  </div>
+</div>
+
+</div>
+
+<div class = row2>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_lap_stack0.jpg">
+      <img src="cat_head_hybrid_hybrid_lap_stack0.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 0</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_lap_stack1.jpg">
+      <img src="cat_head_hybrid_hybrid_lap_stack1.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 1</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_lap_stack2.jpg">
+      <img src="cat_head_hybrid_hybrid_lap_stack2.jpg" alt="cathedral" width="600" height="400">
+    </a>
+   <!--  <div class="desc">Laplacian stack 2</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_lap_stack3.jpg">
+      <img src="cat_head_hybrid_hybrid_lap_stack3.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 3</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="cat_head_hybrid_hybrid_lap_stack4.jpg">
+      <img src="cat_head_hybrid_hybrid_lap_stack4.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 4</div> -->
+  </div>
+</div>
+
+</div>
+
+<h3>Self Select Image Stacks</h3>
+
+<div class = row2>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_gauss_stack0.jpg">
+      <img src="lincoln_hybrid_gauss_stack0.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 0</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_gauss_stack1.jpg">
+      <img src="lincoln_hybrid_gauss_stack1.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 1</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_gauss_stack2.jpg">
+      <img src="lincoln_hybrid_gauss_stack2.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 2</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_gauss_stack3.jpg">
+      <img src="lincoln_hybrid_gauss_stack3.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 3</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_gauss_stack4.jpg">
+      <img src="lincoln_hybrid_gauss_stack4.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Gaussian stack 4</div> -->
+  </div>
+</div>
+
+</div>
+
+<div class = row2>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_lap_stack0.jpg">
+      <img src="lincoln_hybrid_lap_stack0.jpg" alt="cathedral" width="600" height="400">
+    </a>
+   <!--  <div class="desc">Laplacian stack 0</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_lap_stack1.jpg">
+      <img src="lincoln_hybrid_lap_stack1.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 1</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_lap_stack2.jpg">
+      <img src="lincoln_hybrid_lap_stack2.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 2</div> -->
+  </div>
+</div>
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_lap_stack3.jpg">
+      <img src="lincoln_hybrid_lap_stack3.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 3</div> -->
+  </div>
+</div>
+
+<div class="responsive_5">
+  <div class="gallery">
+    <a target="_blank" href="lincoln_hybrid_lap_stack4.jpg">
+      <img src="lincoln_hybrid_lap_stack4.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Laplacian stack 4</div> -->
+  </div>
+</div>
+
+</div>
+
+
+<h2>2.4: Multiresolution Blending (a.k.a. the oraple!)</h2>
+<h3>Example</h3>
+<div class = row>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="orange.jpeg">
+      <img src="orange.jpeg" alt="cathedral" width="600" height="400">
+    </a>
+    <div class="desc">Orange</div>
+  </div>
+</div>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="apple.jpeg">
+      <img src="apple.jpeg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Apple</div>
+  </div>
+</div>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="orapple.jpg">
+      <img src="orapple.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">oraple</div>
+  </div>
+</div>
+
+</div>
+
+<h3>Self Select</h3>
+<div class = row>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="flower.jpg">
+      <img src="flower.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <div class="desc">Flower</div>
+  </div>
+</div>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="lung.jpg">
+      <img src="lung.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Lung</div>
+  </div>
+</div>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="flung_crop.jpg">
+      <img src="flung_crop.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Flung</div>
+  </div>
+</div>
+
+</div>
+
+<div class="row2">
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im1_0.jpg">
+      <img src="lung_blend_im1_0.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im1_1.jpg">
+      <img src="lung_blend_im1_1.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im1_2.jpg">
+      <img src="lung_blend_im1_2.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im1_3.jpg">
+      <img src="lung_blend_im1_3.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im1_4.jpg">
+      <img src="lung_blend_im1_4.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im1_5.jpg">
+      <img src="lung_blend_im1_5.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+</div>
+
+<div class="row2">
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im2_0.jpg">
+      <img src="lung_blend_im2_0.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im2_1.jpg">
+      <img src="lung_blend_im2_1.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im2_2.jpg">
+      <img src="lung_blend_im2_2.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im2_3.jpg">
+      <img src="lung_blend_im2_3.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im2_4.jpg">
+      <img src="lung_blend_im2_4.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_im2_5.jpg">
+      <img src="lung_blend_im2_5.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+</div>
+
+<div class="row">
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_0.jpg">
+      <img src="lung_blend_0.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 0</div>
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_1.jpg">
+      <img src="lung_blend_1.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 1</div>
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_2.jpg">
+      <img src="lung_blend_2.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 2</div>
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_3.jpg">
+      <img src="lung_blend_3.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 3</div>
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_4.jpg">
+      <img src="lung_blend_4.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 4</div>
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="lung_blend_5.jpg">
+      <img src="lung_blend_5.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 5</div>
+  </div>
+</div>
+
+</div>
+<h3>Self Select - Irregular Mask</h3>
+<div class = row>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="girl.jpg">
+      <img src="girl.jpg" alt="cathedral" width="600" height="400">
+    </a>
+    <div class="desc">Girl with Ballon</div>
+  </div>
+</div>
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="moon.jpg">
+      <img src="moon.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Moon</div>
+  </div>
+</div>
+<!-- <div class="responsive_4">
+  <div class="gallery">
+    <a target="_blank" href="mask.jpg">
+      <img src="mask.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Mask</div>
+  </div>
+</div> -->
+
+<div class="responsive_3">
+  <div class="gallery">
+    <a target="_blank" href="gm.jpg">
+      <img src="gm.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Girl with Moon</div>
+  </div>
+</div>
+
+</div>
+
+<div class="row2">
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im1_0.jpg">
+      <img src="im1_aligned_blend_im1_0.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im1_1.jpg">
+      <img src="im1_aligned_blend_im1_1.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im1_2.jpg">
+      <img src="im1_aligned_blend_im1_2.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im1_3.jpg">
+      <img src="im1_aligned_blend_im1_3.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im1_4.jpg">
+      <img src="im1_aligned_blend_im1_4.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im1_5.jpg">
+      <img src="im1_aligned_blend_im1_5.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+</div>
+
+<div class="row2">
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im2_0.jpg">
+      <img src="im1_aligned_blend_im2_0.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im2_1.jpg">
+      <img src="im1_aligned_blend_im2_1.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im2_2.jpg">
+      <img src="im1_aligned_blend_im2_2.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im2_3.jpg">
+      <img src="im1_aligned_blend_im2_3.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im2_4.jpg">
+      <img src="im1_aligned_blend_im2_4.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_im2_5.jpg">
+      <img src="im1_aligned_blend_im2_5.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <!-- <div class="desc">Blend Stage 0</div> -->
+  </div>
+</div>
+
+</div>
+
+<div class="row">
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_0.jpg">
+      <img src="im1_aligned_blend_0.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 0</div>
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_1.jpg">
+      <img src="im1_aligned_blend_1.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 1</div>
+  </div>
+</div>
+
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_2.jpg">
+      <img src="im1_aligned_blend_2.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 2</div>
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_3.jpg">
+      <img src="im1_aligned_blend_3.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 3</div>
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_4.jpg">
+      <img src="im1_aligned_blend_4.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 4</div>
+  </div>
+</div>
+<div class="responsive_6">
+  <div class="gallery">
+    <a target="_blank" href="im1_aligned_blend_5.jpg">
+      <img src="im1_aligned_blend_5.jpg" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Blend Stage 5</div>
+  </div>
+</div>
+
+</div>
+
+
+
+<div class="clearfix"></div>
+
+</body>
+</html>
+
